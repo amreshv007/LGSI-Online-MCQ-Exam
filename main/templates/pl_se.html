@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LGSI MCQ Exam</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/index1.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+</head>
+<body class="back">
+  <div class="header">
+    <a href="#default" class="logo">Online MCQ Exam</a>
+    <div class="header-right">
+      {% if user.is_authenticated %}
+      <p class="active" id="clockdiv"></p>
+      {% else %}
+      <a href="signup" class="signup">Signup</a>
+      <a href="login" class="login">Login</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="container" align="center">
+    <div class="row" id="instruct">
+      <h1 class="blink" style="font-size: 250%; margin-bottom: 20px; margin-top: 5px;"><u>Test Instructions</u></h1>
+      <div>
+        <ul class="ins" style="text-align: left; font-size: 120%;">
+          <li>The duration of this exam is <b>05 Minutes</b>.</li>
+          <li>The Time Remaining is shown in the <b>CENTER Top</b> of the screen</li>
+          <li>Once you start the exam, you <b>cannot refresh or go back without submitting</b> the exam.</li>
+          <li>The test will be automatically submitted after <b>time completion</b>.</li>
+          <li>There are <b>10 questions</b> in this exam and will be presented <b>one at a time</b>.</li>
+          <li>Each question is worth the <b>same</b> marks. </li>
+          <li>There will be <b>NO NEGATIVE MARKING</b> for the wrong answers.</li>
+          <li>The employee may not use their textbook, notes, or receive help from a proctor or any other outside source.</li>
+          <li>Employee should <b>not move or go outside the test window</b> as they will be marked suspicious and if tried to do so repeatedly the test may get terminated.</li>
+          <li>The test is <b>monitored</b> and has <b>strong proctoring mechanisms</b>, hence advised not to cheat in any manner.</li>
+          <li>It is possible to <b>Review</b> the answered as well as the unanswered questions.</li>
+        </ul>
+      </div>
+      <div>
+        <button class="blink" onclick="start_test()" style="font-weight: bolder; font-size: 20px; margin: 5px; border-radius: 5px;padding: 3px 20px;">
+        Start
+        </button>
+      </div>
+    </div>
+    <div class="row" id="quests">
+      <form method="POST" action="../result" id="form_sub">
+        {% csrf_token %}
+        <ul style="text-align: left; font-size: 130%; margin-bottom: 20px;">
+          <input type="hidden" value="{{examtype}}" name="examtype">
+          {% for ques in questions %}
+            <div class="ques">
+              <h1 style="text-align: center;font-size: 25px;"><b>Question No. {{forloop.counter}}</b></h1>
+              <li id="{{forloop.counter}}">{{ques.question}}</li>
+              <div>
+                {% if ques.option1 != null %}
+                <input type="radio" value="{{ques.option1}}" name="ques{{forloop.counter}}">{{ques.option1}}<br>
+                {% endif %}
+                {% if ques.option2 != null %}
+                <input type="radio" value="{{ques.option2}}" name="ques{{forloop.counter}}">{{ques.option2}}<br>
+                {% endif %}
+                {% if ques.option3 != null %}
+                <input type="radio" value="{{ques.option3}}" name="ques{{forloop.counter}}">{{ques.option3}}<br>
+                {% endif %}
+                {% if ques.option4 != null %}
+                <input type="radio" value="{{ques.option4}}" name="ques{{forloop.counter}}">{{ques.option4}}<br>
+                {% endif %}
+              </div>
+            </div>
+            <!-- <hr> -->
+          {% endfor %}
+          <div>
+              <div align="center" id="form_button">
+                <button id="button_lang">
+                  Finish Test !!!
+                </button>
+              </div>
+            </div>
+        </ul>
+      </form>
+      <div style="margin-bottom: 15px; text-align: center;">
+        <frameset cols="*,*">
+          <frame>
+            <button onclick="plusDivs(-1)" id="button_prev" style="width: 250px;"> l< Previous
+            </button>
+          </frame>
+          <frame>
+            <button onclick="plusDivs(1)" id="button_next" style="width: 250px;">Next >l
+            </button>
+          </frame>
+        </frameset>
+        <br>
+      </div>
+    </div>
+  </div>
+  <footer class="foot">
+    <p><b>Developed by :</b> <u>Amresh | Arvind</u>&nbsp <b>Advisory : </b> <u>M Prem Kumar</u> || <b>LGSIA-Global Model Team</b></p>
+  </footer>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'js/timer.js' %}"></script>
+  <script src="{% static 'js/index.js' %}"></script>
+  <script>
+    var slideIndex = 1;
+    function plusDivs(n) {
+      showDivs(slideIndex += n);
+    }
+    function showDivs(n) {
+      let i;
+      let x = document.getElementsByClassName("ques");
+      if (n > x.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = x.length}
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";  
+      }
+      x[slideIndex-1].style.display = "block"; 
+      if(slideIndex == x.length){
+        let get_b = document.getElementById("form_button");
+        get_b.style.display = "block";
+      } 
+    }
+    showDivs(slideIndex);
+  </script>
+</body>
+</html>

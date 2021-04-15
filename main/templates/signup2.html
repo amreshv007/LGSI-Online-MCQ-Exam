@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Signup</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body style="padding: 35px 0 25px 0; -webkit-user-select: none; -webkit-touch-callout: none; -moz-user-select: none; -ms-user-select: none; user-select: none;background-image: none;background-color: #ececec99;">
+    <div class="main">
+        <section class="signup">
+            <div class="container" style="width: 55%;">
+                <div class="signup-content" style="padding: 2px 90px;">
+                    <form method="POST" id="signup-form" class="signup-form" action="/lgsi-mcq-exam/signup">
+                        {% csrf_token %}
+                        <h2 class="form-title">Create Account</h2>
+                        <div class="form-group" style="margin-bottom: 10px;">
+                            <input type="text" class="form-input" name="first_name" id="fname" placeholder="First Name" required />
+                        </div>
+                        <div class="form-group" style="margin-bottom: 10px;">
+                            <input type="text" class="form-input" name="last_name" id="lname" placeholder="Last Name"/>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 10px;">
+                            <input type="email" class="form-input" name="email" id="email" placeholder="Email (@lge.com - @lgepartner.com)" required/>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 10px;">
+                            <input type="text" class="form-input" name="emp_id" id="emp_id" placeholder="Employee ID" required/>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 10px;">
+                            <input type="text" class="form-input" name="username" id="username" placeholder="Username" required />
+                        </div>
+                        <div class="form-group" style="margin-bottom: 10px;">
+                            <input type="password" class="form-input" name="password" id="password" placeholder="Password" required />
+                            <span toggle="#password" onclick="show_passwrd()" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 10px;">
+                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password" required />
+                        </div>
+                        <div class="form-group" style="margin-bottom: 10px;">
+                            {% for msg in messages %}
+                                <p style="color: #f84006; text-align: center;font-weight: bold;">{{ msg }}</p>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" onclick="checkinput()" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                        </div>
+                    </form>
+                    <p class="loginhere" style="margin-top: 5px;">
+                        Have already an account ? <a href="../lgsi-mcq-exam/login" class="loginhere-link">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/main1.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+.row{
+	width: 80%;
+	margin-top: 10px;
+}
+.ad_ques input, .OP input{
+	border-radius: 5px;
+    border: 1px solid grey;
+    padding: 5px;
+}
+.OP input[type="radio"]{
+	margin-right: 10px;
+	margin-bottom: 25px;
+}
+.ad_ques{
+	display: flex;
+}
+.add_ques{
+	text-align: right;
+}
+.ad_ques button, .add_ques button{
+	margin-left: 5px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    padding: 2px 5px;
+}
+.blink_next{
+    font-weight: bolder;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-size: 25px;
+    padding: 0px 15px;
+}
+.result_type{
+	margin-bottom: 30px;
+	text-align: left;
+}
+.result_type a{
+	border: 2px solid #477e6b;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #347d95;
+    color: #e5e5e5;
+    margin-right: 10px;
+    text-decoration: none;
+}
+#clockdiv{
+	font-size: 18px;
+	margin: 0;
+    margin-top: 10px;
+}
+.head h1{
+	padding: 10px 0px 10px 10px;
+    font-weight: 600;
+    color: #362d67;
+}
+.head h3{
+	padding: 0px 10px 10px 0px;
+	color: #362d67;
+}
+.blink{
+  /*animation: blinker 1s linear infinite;*/
+  font-weight: bolder;
+}
+@keyframes blinker{
+  50% {
+    opacity: 0.2;
+  }
+}
+.foot{
+	/*background-color: #8080ff;*/
+	padding: 5px; 
+	text-align: center; 
+	position: fixed;
+	bottom: 0; 
+	width: 100%;
+	margin-top: 0px;
+}
+footer p{
+	margin : 0px;
+}
+.container{
+	margin-bottom: 20px;
+}
+ol li{
+	border-radius: 8px;
+}
+.subject{
+  	text-align: left;
+  	font-weight: bold;
+  	margin-top: 30px;
+  	font-size: 18px;
+    margin-left: 20%
+}
+input[type=radio]{
+	transform:scale(1.5);
+	margin-right: 15px;
+	margin-left: 5px;
+	margin-bottom: 10px;
+}
+.marquee{
+    color: #f80404;
+    font-size: 18px;
+    margin-top: 10px;
+}
+.marquee1{
+	margin-bottom: 0px;
+}
+input{
+  line-height: normal;
+}
+#form_button{
+	display: none;
+}
+#button_lang{
+	width: 200px; 
+	font-weight: bolder; 
+	font-size: 140%;
+	margin-top: 10px; 
+	border-radius: 10px;
+}
+#button_lang:hover{
+	background-color: #d32525a8;
+}
+.ques li{
+	margin-bottom: 20px;
+}
+.ques input[type=radio]{
+	margin-bottom: 15px;
+}

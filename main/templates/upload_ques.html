@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>LGSI MCQ Exam</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/index1.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+	<style>
+		input[type=radio]{
+			margin-right: 5px;
+			margin-bottom: 10px;
+			transform: scale(1.7);
+		}
+		li{
+			margin-bottom: 10px;
+		}
+		input[type=text]{
+			margin-bottom: 2px;
+		}
+		li input{
+			width: 100%;
+		}
+		.ad_ques input{
+			width: 99.5%;
+		}
+		.BD input{
+			margin-left: 20px;
+		}
+		#OP{
+			margin-left: 7%;
+		}
+	</style> 
+</head>
+<body class="back" style="color: black;">
+	<div class="header">
+  <a href="#default" class="logo">Online MCQ Exam</a>
+  <div class="header-right">
+      {% if user.is_authenticated %}
+      <a class="active" href="edit-profile" title="Edit Profile">Hello! {{user.first_name}}</a>
+      <form method="POST" id="logout" action="../logout" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="submit" name="submit" id="submit" class="form-submit" value="Logout" style="background-color: #46afd8;" />
+      </form>
+      {% else %}
+      <a href="signup" class="signup">Signup</a>
+      <a href="login" class="login">Login</a>
+      {% endif %}
+  </div>
+</div>
+	<div class="container" align="center" style="margin-bottom: 50px;">
+		<div class="row">
+			<h1 style="font-size: 30px;margin-bottom: 20px;"><b>Enter {{examtype}} Questions</b></h1>
+			<ul style="text-align: left; margin-top: 5px;">
+			<form method="POST" id="formSubmit">
+				{% csrf_token %}
+				<input type="hidden" name="examtype" value="{{examtype}}">
+				<div id="allques">
+					<div class="eachques">
+						<li class="ad_ques"><input type="text" name="Ques" placeholder="Question_1"><button type="button" class="dlt_button" onclick="dlt_ques()">Delete</button></li>
+						<div class="OP">
+							<input type="radio" name="Radio1"><input type="text" name="Option" placeholder="Option A">
+							<input type="radio" name="Radio1"><input type="text" name="Option" placeholder="Option B"><br>
+							<input type="radio" name="Radio1"><input type="text" name="Option" placeholder="Option C">
+							<input type="radio" name="Radio1"><input type="text" name="Option" placeholder="Option D"><br>
+						</div>
+						<hr>
+					</div>
+				</div>
+				<p class="add_ques">
+					<button type="button" id="add_ques">Add Question</button>
+				</p>
+			</ul>
+			<div align="center" style="width: 80%; margin-bottom: 10px;">
+				<button type="submit" id="uploadques" style="font-weight: bolder; border-radius: 5px;padding: 5px 10px;">UPLOAD
+				</button>
+			</div>
+			</form>	
+		</div>
+	</div>
+	<footer class="foot">
+		<p><b>Developed by :</b> <u>Amresh | Arvind</u>&nbsp <b>Advisory : </b> <u>M Prem Kumar</u> || <b>LGSIA-Global Model Team</b></p>
+	</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  	<script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>

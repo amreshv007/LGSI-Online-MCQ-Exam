@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>LGSI MCQ Exam</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/index1.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+	<style>
+		.res{
+			font-size: 250%;
+			text-align: center;
+			font-weight: 200;
+			width: 80%;
+		}
+		.f label{
+			margin-bottom: 15px;
+			font-size: 170%;
+		}
+	</style>
+</head>
+<body class="back">
+	<div class="header">
+    <a href="#default" class="logo">Online MCQ Exam</a>
+    <div class="header-right">
+      {% if user.is_authenticated %}
+      <a class="active" href="edit-profile" title="Edit Profile">Hello! {{user.first_name}}</a>
+      <form method="POST" id="logout" action="logout" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="submit" name="submit" id="submit" class="form-submit" value="Logout" style="background-color: #46afd8;" />
+      </form>
+      {% else %}
+      <a href="signup" class="signup">Signup</a>
+      <a href="login" class="login">Login</a>
+      {% endif %}
+    </div>
+  </div>
+	<div class="container" align="center" style="padding: 0px 0px 35px 0px; opacity: 0.95; width: 85%">
+		<div class="row" style="margin: 10px;">
+			<h1 class="blink" style="color: #362d67; font-weight: bolder;"><u id="choose_test"></u></h1>
+			<div class="res" style="font-size: 15px;">
+				{% if user_result < 0 %}
+				<p>Due to Refresh or going back, Your result is automatically Submitted with <b>no result</b>.</p>
+				{% else %}
+				<p><b>You have already appeared for this Exam.</b></p><br>
+				<div>
+					<p style="text-align: left;"><b>Results Summary:</b></p>
+					<table>
+						<tr>
+							<td><b>Test Name:</b></td>
+							<td>{{examtype}}</td>
+						</tr>
+						<tr>
+							<td><b>Your Score:</b></td>
+							<td>{{user_result}}%</td>
+						</tr>
+						<tr>
+							<td><b>Required to Pass:</b></td>
+							<td>{{req_scored}}%</td>
+						</tr>
+						<tr>
+							<td><b>Results:</b></td>
+							{% if user_result < 70 %}
+							<td style="color: red;">Sorry, you did not receive a passing score for this exam.</td>
+							{% else %}
+							<td>Congrats! You have <span style="color: green;">Passed</span> this exam.</td>
+							{% endif %}
+						</tr>
+					</table>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<footer class="foot">
+		<p><b>Developed by :</b> <u>Amresh | Arvind</u>&nbsp <b>Advisory : </b> <u>M Prem Kumar</u> || <b>LGSIA-Global Model Team</b></p>
+	</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+</body>
+</html>
