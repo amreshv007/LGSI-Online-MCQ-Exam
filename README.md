@@ -1,7 +1,7 @@
 # LGSI-Online-MCQ-Exam
    # How to use:
       1. clone repository to your local system.
-      2. Open cmd and go to the folder path "LGSI-Online-MCQ-Exam"
+      2. Open cmd and go to the repository path.
       3. Run command : 
                     ~$ venv\Scripts\activate
                     ~$ python manage.py runserver
