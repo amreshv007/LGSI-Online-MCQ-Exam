@@ -49,6 +49,9 @@ def plresult(request):
         pl_result = UserAnswer.objects.filter(examtype="PL")
         allquestions = LgsiExam.objects.filter(examtype="PL")
         total_marks = 10*allquestions.count()
+        if total_marks == 0:
+            messages.info(request,"No Exam Handled!")
+            return redirect("/lgsi-mcq-exam")
         all_user = User.objects.all()
         all_emp = UserEmpId.objects.all()
         pl_result1 = []
@@ -91,22 +94,27 @@ def se_pl(request):
             user_result = UserAnswer.objects.filter(user=request.user,examtype=examtype)
             allquestions = LgsiExam.objects.filter(examtype=examtype)
             total_marks = 10*allquestions.count()
-            for res1 in user_result:
-                result1 = -1
-                if res1.result != -1:
-                    result1 = int(res1.result)
-                    req_scored = total_marks - result1
-                    actual_prcntg = int((result1/total_marks)*100)
-                    req_prcntg = int((req_scored/total_marks)*100)
-                    return render(request,"pre_result1.html",{'examtype':examtype,'user_result':actual_prcntg,'req_scored':req_prcntg})
-            if result1 == "-1":
-                return render(request,"pre_result1.html",{'examtype':examtype,'user_result':result1})
+            if total_marks == 0:
+                print("Admin has not uploaded the questions yet.")
+                messages.info(request,"Admin has not uploaded the questions yet.")
+                return redirect("/lgsi-mcq-exam")
             else:
-                questions = LgsiExam.objects.filter(examtype = examtype)
-                res = -1;
-                user_ans = UserAnswer(user=request.user,result=res,examtype=examtype)
-                user_ans.save()
-                return render(request,"pl_se.html",{'examtype':examtype, 'questions':questions})
+                for res1 in user_result:
+                    result1 = -1
+                    if int(res1.result) != -1:
+                        result1 = int(res1.result)
+                        req_scored = total_marks - result1
+                        actual_prcntg = int((result1/total_marks)*100)
+                        req_prcntg = int((req_scored/total_marks)*100)
+                        return render(request,"pre_result1.html",{'examtype':examtype,'user_result':actual_prcntg,'req_scored':req_prcntg})
+                if result1 == "-1":
+                    return render(request,"pre_result1.html",{'examtype':examtype,'user_result':result1})
+                else:
+                    questions = LgsiExam.objects.filter(examtype = examtype)
+                    res = -1;
+                    user_ans = UserAnswer(user=request.user,result=res,examtype=examtype)
+                    user_ans.save()
+                    return render(request,"pl_se.html",{'examtype':examtype, 'questions':questions})
     else:
         return redirect("/lgsi-mcq-exam")
 
